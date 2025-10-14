@@ -1,0 +1,7 @@
+[
+  { "nome": "Daniel", "dia": 21, "mes": 7, "ano": 2001 },
+  { "nome": "Leticia", "dia": 31, "mes": 8, "ano": 2001 },
+  { "nome": "Marina", "dia": 14, "mes": 2, "ano": 2001 },
+  { "nome": "Maira", "dia": 7,  "mes": 6, "ano": 2001 },
+  { "nome": "Amanda", "dia": 7,  "mes": 1, "ano": 2001 }
+]

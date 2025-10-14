@@ -1,0 +1,17 @@
+@JsonSerializable()
+class User {
+  final String nome;
+  final int dia;
+  final int mes;
+  final int ano;
+
+  User({
+    required this.nome,
+    required this.dia,
+    required this.mes,
+    required this.ano,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  Map<String, dynamic> toJson() => _$UserToJson(this);
+}
