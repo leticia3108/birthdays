@@ -14,17 +14,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<List<Object>> register = [
-    ['Daniel', 21, 07, 2001],
-    ['Leticia', 31, 08, 2001],
-    ['Marina', 14, 02, 2001],
-    ['Maira', 7, 06, 2001],
-    ['Amanda', 7, 01, 2001],
-    ['Natalie', 5, 12, 2001],
-    ['Cássio', 23, 06, 2001],
+    ['Daniel', 21, 07, 200, ''],
+    ['Leticia', 31, 08, 2001, ''],
+    ['Marina', 14, 02, 2001, ''],
+    ['Maira', 7, 06, 2001, ''],
+    ['Amanda', 7, 01, 2001, ''],
+    ['Natalie', 5, 12, 2001, ''],
+    ['Cássio', 23, 06, 2001, ''],
   ];
 
   var tempName = "NoN";
   DateTime data = DateTime.now();
+  var imagePath = "";
   final TextEditingController nameControl = TextEditingController();
 
   @override
@@ -67,6 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void setPath(String path) {
+    imagePath = path;
+  }
+
   void _addMember() async {
     await Navigator.push(
       context,
@@ -75,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
           callback: onChanged,
           setName: setName,
           setDate: setDate,
+          setPath: setPath,
           nameControl: nameControl,
         ),
       ),
@@ -84,8 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onChanged() {
-    register.add([tempName, data.day, data.month, data.year]);
-    print('Hi');
+    register.add([tempName, data.day, data.month, data.year, imagePath]);
     saveJson(register);
   }
 
@@ -135,7 +140,11 @@ class _HomeScreenState extends State<HomeScreen> {
             return Row(
               spacing: 20,
               children: <Widget>[
-                CircleAvatar(backgroundImage: AssetImage('images/cake.jpg')),
+                CircleAvatar(
+                  backgroundImage: (register[position][4] != "")
+                      ? FileImage(File(register[position][4].toString()))
+                      : AssetImage('images/cake.jpg'),
+                ),
                 Column(
                   children: <Widget>[
                     Text(

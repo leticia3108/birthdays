@@ -2,12 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+
+Future<String> getLocalFilePath(String fileName) async {
+  final directory = await getApplicationDocumentsDirectory();
+  return '${directory.path}/$fileName';
+}
 
 class AddScreen extends StatefulWidget {
   DateTime selectedDate = DateTime.now();
   final Function callback;
   final Function setName;
   final Function setDate;
+  final Function setPath;
   final TextEditingController nameControl;
 
   AddScreen({
@@ -15,6 +22,7 @@ class AddScreen extends StatefulWidget {
     required this.callback,
     required this.setName,
     required this.setDate,
+    required this.setPath,
     required this.nameControl,
   });
 
@@ -37,6 +45,8 @@ class _AddScreenState extends State<AddScreen> {
       setState(() {
         _image = pickedFile;
       });
+
+      widget.setPath(_image!.path);
       // You can now use _image.path to access the image file path
       // For example, to display it: Image.file(File(_image!.path))
     }
