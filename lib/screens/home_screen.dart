@@ -52,7 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
     if (await file.exists()) {
       String contents = await file.readAsString();
       var data = jsonDecode(contents);
-      register = List<List<Object>>.from(data.map((e) => List<Object>.from(e)));
+      setState(() {
+        register = List<List<Object>>.from(data.map((e) => List<Object>.from(e)));
+      });
     } else {
       print("File does not exist.");
     }
@@ -89,6 +91,16 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
+  void _deleteMember(var position){
+    register.removeAt(position);
+    saveJson(register);
+    setState(() {});
+  }
+
+  void _showDescription(var position){
+// Go to the showDescription page
+  }
+
   void onChanged() {
     register.add([tempName, data.day, data.month, data.year, imagePath]);
     saveJson(register);
@@ -97,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    saveJson(register);
     loadJson();
+   // saveJson(register);
   }
 
   @override
@@ -175,6 +187,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
+                    Spacer(),
+                    Row(
+                      children: [
+                        ElevatedButton(child: const Icon(Icons.delete, size:20), onPressed: ()=>_deleteMember(position), style: ElevatedButton.styleFrom(backgroundColor: Colors.teal[50], foregroundColor: Colors.teal, shape: CircleBorder(), maximumSize: Size(70,70), padding: EdgeInsets.all(0)),),
+                        ElevatedButton(child: const Icon(Icons.description, size:20), onPressed: ()=>_showDescription(position), style: ElevatedButton.styleFrom(backgroundColor: Colors.teal[50], foregroundColor: Colors.teal, shape: CircleBorder(), maximumSize: Size(70,70), padding: EdgeInsets.all(0)),),
+                      ],
+                    ),
+
               ],
             );
           },
